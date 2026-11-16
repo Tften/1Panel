@@ -32,6 +32,24 @@ Git 管理规范（分支流程、Commit Message、风险分级）参考 `git-wo
 
 如需派发 subagent，**每次仅派发一个**，待其完成后再派发下一个；不要并行派发多个，容易被限流。
 
+## 开发机（Ubuntu）
+
+| 项 | 值 |
+| :--- | :--- |
+| 登录 | `ssh ausu-f15`（用户 `u26`，密钥 `~/.ssh/id_ed25519_ausu_f15_u26`） |
+| SSH 客户端 | 本机 Git Bash 自带的 `ssh` 无法解密带口令的密钥，**须用 Windows 原生 `C:\Windows\System32\OpenSSH\ssh.exe`**（其 ssh-agent 服务已运行并持有该密钥） |
+| 代码 | `~/1Panel/`：与本仓库 `origin` 同源（github.com/Tften/1Panel），分支 `dev` |
+| 面板安装 | `~/1panel-v2.4.1-linux-amd64/`：官方 v2.4.1，二进制已部署至 `/usr/local/bin/1panel-{core,agent}`（软链到 `/usr/bin/`） |
+| 运行方式 | systemd：`1panel-core.service` + `1panel-agent.service`（root 运行，开机自启）；面板端口 `41397`（http） |
+| 数据目录 | `/opt/1panel/`（db/log/apps 等） |
+
+**二次开发调试约定**：
+
+1. 允许先 `sudo systemctl stop 1panel-core 1panel-agent` 停止官方进程，再在 `~/1Panel/` 启动开发版后端；调完恢复 `sudo systemctl start 1panel-core 1panel-agent`
+2. 开发版 core 须以 root 运行（`sudo go run ./cmd/server`，agent 同理），否则 `/etc/1panel/agent.sock` 权限校验失败
+3. 开发机当前**未装 go/node**，首次构建前需安装（go ≥ 1.27、node 与本仓库 frontend 一致）；`~/1Panel/frontend/node_modules` 尚未安装
+4. 注意版本差异：官方运行的是 **v2.4.1 发布版**，`~/1Panel/` 是 `dev-v2` 开发分支（v2.0.0-beta 线），数据库结构可能存在发布版之后追加的迁移；如遇不兼容，备份 `/opt/1panel/db/` 后再让开发版跑迁移
+
 ## Agent skills
 
 ### Issue tracker
