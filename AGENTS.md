@@ -47,8 +47,18 @@ Git 管理规范（分支流程、Commit Message、风险分级）参考 `git-wo
 
 1. 允许先 `sudo systemctl stop 1panel-core 1panel-agent` 停止官方进程，再在 `~/1Panel/` 启动开发版后端；调完恢复 `sudo systemctl start 1panel-core 1panel-agent`
 2. 开发版 core 须以 root 运行（`sudo go run ./cmd/server`，agent 同理），否则 `/etc/1panel/agent.sock` 权限校验失败
-3. 开发机当前**未装 go/node**，首次构建前需安装（go ≥ 1.27、node 与本仓库 frontend 一致）；`~/1Panel/frontend/node_modules` 尚未安装
-4. 注意版本差异：官方运行的是 **v2.4.1 发布版**，`~/1Panel/` 是 `dev-v2` 开发分支（v2.0.0-beta 线），数据库结构可能存在发布版之后追加的迁移；如遇不兼容，备份 `/opt/1panel/db/` 后再让开发版跑迁移
+3. 注意版本差异：官方运行的是 **v2.4.1 发布版**，`~/1Panel/` 是 `dev-v2` 开发分支（v2.0.0-beta 线），数据库结构可能存在发布版之后追加的迁移；如遇不兼容，备份 `/opt/1panel/db/` 后再让开发版跑迁移
+
+**开发机工具链**：
+
+| 工具 | 版本/路径 | 说明 |
+| :--- | :--- | :--- |
+| Go | 1.27.3（`~/.local/go/bin/go`） | 已配 `GOPROXY=https://goproxy.cn,direct`；PATH 已写入 `~/.bashrc` |
+| Node/npm | v24.22.1 / 11.19.1（nvm 管理） | nvm 的 `default` 别名已指向 v24.22.1；**非交互 SSH 命令里需先 `export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh"`**（或用 `bash -ic`），否则找不到 node |
+| 构建验证 | core/agent `go build ./...` 均通过 | agent 编译前需 `bash agent/utils/vm/helper/prepare.sh` 下载 KVM helper 二进制（首次已执行）；core 编译需先有前端产物（占位文件已在 `core/cmd/server/web/` 建过，gitignore 忽略不入库） |
+| 尚未安装 | swag（改 API 注解后重新生成 swagger 时才需要） | 需要时装：`go install github.com/swaggo/swag/cmd/swag@latest` |
+
+下载镜像源备注：go.dev 直连很慢（实测 <100KB/s），装工具用阿里云镜像 `https://mirrors.aliyun.com/golang/`；npm 源如慢可换 `npmmirror`。
 
 ## Agent skills
 
