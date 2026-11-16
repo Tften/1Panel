@@ -75,6 +75,8 @@ agent/.golangci.yml
 openspec
 CLAUDE.md
 AGENTS.md
+# 二次开发：仓库约定入库，仅取消忽略根目录的 AGENTS.md
+!/AGENTS.md
 opencode.json
 superpowers
 .worktrees/
