@@ -26,6 +26,11 @@ Git 管理规范（分支流程、Commit Message、风险分级）参考 `git-wo
 - `core/`：管理端后端（Go）
 - `agent/`：被管节点后端（Go）
 - `frontend/`：Web 前端（Vue 3 + TypeScript + Vite）
+- `docs/dev/`：二次开发资料（[目录](docs/dev/README.md)）——架构、后端、请求链路、数据库、横切机制、前端、构建、二开实战共 8 篇，动代码前先读对应篇目
+
+## Subagent 派发约定
+
+如需派发 subagent，**每次仅派发一个**，待其完成后再派发下一个；不要并行派发多个，容易被限流。
 
 ## Agent skills
 
