@@ -54,7 +54,7 @@ Git 管理规范（分支流程、Commit Message、风险分级）参考 `git-wo
 | 工具 | 版本/路径 | 说明 |
 | :--- | :--- | :--- |
 | Go | 1.27.3（`~/.local/go/bin/go`） | 已配 `GOPROXY=https://goproxy.cn,direct`；PATH 已写入 `~/.bashrc` |
-| Node/npm | v24.22.1 / 11.19.1（nvm 管理） | nvm 的 `default` 别名已指向 v24.22.1；**非交互 SSH 命令里需先 `export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh"`**（或用 `bash -ic`），否则找不到 node |
+| Node/npm | v24.22.3 / 11.19.1（nvm 管理，旧版 v24.22.1 已卸载） | nvm 的 `default` 别名已指向 v24.22.3；**非交互 SSH 命令里需先 `export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh"`**（或用 `bash -ic`），否则找不到 node |
 | 构建验证 | core/agent `go build ./...` 均通过 | agent 编译前需 `bash agent/utils/vm/helper/prepare.sh` 下载 KVM helper 二进制（首次已执行）；core 编译需先有前端产物（占位文件已在 `core/cmd/server/web/` 建过，gitignore 忽略不入库） |
 | 尚未安装 | swag（改 API 注解后重新生成 swagger 时才需要） | 需要时装：`go install github.com/swaggo/swag/cmd/swag@latest` |
 
