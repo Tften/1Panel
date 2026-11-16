@@ -19,7 +19,7 @@ git switch dev
 git merge dev-v2                      # 上游变更并入二开主分支
 ```
 
-Git 管理规范（分支流程、Commit Message、风险分级）参考 `git-workflow` skill。
+Git 管理规范（分支流程、Commit Message、风险分级）参考 `git-workflow` skill；**本仓库已授权 `git push`**——日常提交后可直接推送到 `origin/dev`（无需逐次确认），方便本机与开发机 `~/1Panel/` 之间保持代码同步；`dev-v2` 仍禁止推送（仅同步上游）。
 
 ## 仓库结构
 
