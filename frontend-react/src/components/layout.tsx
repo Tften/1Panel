@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Home, Globe, Database, Container, Settings, Terminal, Bot, Wrench, Monitor, AppWindow, FileText, Shield, Server } from 'lucide-react';
+import { Home, Globe, Database, Container, Settings, Terminal, Bot, Wrench, Monitor, AppWindow, FileText, Shield, Server, LogOut, User, Moon, Sun, Languages } from 'lucide-react';
 import { createElement, type ComponentType } from 'react';
 import {
     Sidebar,
@@ -21,7 +21,20 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { modules } from '@/router/modules';
 import { useGlobalStore } from '@/store/global';
 import { hasRouteAccessWith } from '@/lib/permission';
+import { setTheme } from '@/lib/theme';
+import { setActiveLocale } from '@/i18n';
+import { logOutApi } from '@/api/auth';
 import type { AppRoute } from '@/router/types';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 
 const iconMap: Record<string, ComponentType<{ className?: string }>> = {
     'p-home': Home,
@@ -131,13 +144,55 @@ export function AppSidebar() {
 }
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
+    const { t, i18n } = useTranslation();
+    const navigate = useNavigate();
+    const clearAuthInfo = useGlobalStore((s) => s.clearAuthInfo);
+    const entrance = useGlobalStore((s) => s.entrance);
+    const theme = useGlobalStore((s) => s.themeConfig.theme);
+
+    const onLogout = async () => {
+        try {
+            await logOutApi();
+        } finally {
+            clearAuthInfo();
+            navigate(entrance ? `/entrance/${entrance}` : '/login', { replace: true });
+        }
+    };
+
     return (
         <SidebarProvider>
             <div className="flex min-h-svh w-full">
                 <AppSidebar />
                 <main className="flex-1">
-                    <header className="flex h-12 items-center gap-2 border-b px-4">
+                    <header className="flex h-12 items-center justify-between border-b px-4">
                         <SidebarTrigger />
+                        <div className="flex items-center gap-2">
+                            <Button variant="ghost" size="icon" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+                                {theme === 'dark' ? <Sun className="size-4" /> : <Moon className="size-4" />}
+                            </Button>
+                            <Button variant="ghost" size="icon" onClick={() => setActiveLocale(i18n.language === 'zh' ? 'en' : 'zh')}>
+                                <Languages className="size-4" />
+                            </Button>
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                                        <Avatar className="h-8 w-8">
+                                            <AvatarFallback>
+                                                <User className="size-4" />
+                                            </AvatarFallback>
+                                        </Avatar>
+                                    </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end">
+                                    <DropdownMenuLabel>{t('commons.login.username', '用户')}</DropdownMenuLabel>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuItem onClick={onLogout}>
+                                        <LogOut className="mr-2 size-4" />
+                                        {t('commons.login.logout', '退出登录')}
+                                    </DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                        </div>
                     </header>
                     <ScrollArea className="h-[calc(100svh-3rem)]">{children}</ScrollArea>
                 </main>
