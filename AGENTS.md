@@ -60,6 +60,12 @@ Git 管理规范（分支流程、Commit Message、风险分级）参考 `git-wo
 
 下载镜像源备注：go.dev 直连很慢（实测 <100KB/s），装工具用阿里云镜像 `https://mirrors.aliyun.com/golang/`；npm 源如慢可换 `npmmirror`。
 
+## 前端重构开发管控
+
+React + TypeScript + Vite + 官方 shadcn/ui 的完整前端重构在开发期与现有 Vue 面板并存；保持业务行为和 API 契约不变，功能对照和浏览器回归通过后才整体切换。旧前端的回退能力在切换后保留至稳定验收，不提前清理。
+
+本项工作的开发门禁依次为：`grill-with-docs`（明确边界、测试接缝）→ `to-spec`（规格发布到本仓库 GitHub Issues）→ `to-tickets`（用户确认拆分与依赖后发布子工单）→ `implement-spec` 或 `implement`（按工单实现）→ `code-review`（检查、修复和复验）。`git-workflow` 贯穿全程。若 GitHub 认证不可用，先保留本地草稿并明确标记未发布，不把草稿当成已就绪工单。实现阶段逐项记录已迁移/未迁移的模块及验收证据，不以构建成功代替功能验收。
+
 ## Agent skills
 
 ### Issue tracker
