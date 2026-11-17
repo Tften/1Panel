@@ -218,3 +218,22 @@ describe('isCsrfForbidden', () => {
         expect(isCsrfForbidden(undefined)).toBe(false);
     });
 });
+
+describe('默认 fetch 绑定', () => {
+    it('未注入 fetchImpl 时以 globalThis 调用 fetch，避免 Illegal invocation', async () => {
+        const original = globalThis.fetch;
+        const fetchSpy = vi
+            .fn()
+            .mockResolvedValue(jsonResponse({ code: 200, message: '', data: { ok: true } }));
+        globalThis.fetch = fetchSpy;
+        try {
+            const client = new HttpClient({ baseURL: '/api/v2', getCookie: () => undefined });
+            const res = await client.get('/core/auth/setting');
+            expect(res.data).toEqual({ ok: true });
+            expect(fetchSpy).toHaveBeenCalledTimes(1);
+            expect(fetchSpy.mock.contexts[0]).toBe(globalThis);
+        } finally {
+            globalThis.fetch = original;
+        }
+    });
+});

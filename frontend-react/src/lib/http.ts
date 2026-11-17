@@ -67,7 +67,7 @@ export class HttpClient {
 
     constructor(options: HttpClientOptions) {
         this.baseURL = options.baseURL;
-        this.fetchImpl = options.fetchImpl ?? fetch;
+        this.fetchImpl = options.fetchImpl ?? ((...args) => globalThis.fetch(...args));
         this.getCookie = options.getCookie ?? defaultGetCookie;
         this.onRedirect = options.onRedirect ?? (() => undefined);
         this.onError = options.onError ?? (() => undefined);
@@ -193,8 +193,9 @@ export class HttpClient {
                 signal: AbortSignal.timeout(config?.timeout ?? ResultEnum.TIMEOUT),
             });
         } catch (error) {
-            if (!config?.errorMessageMode || config.errorMessageMode !== 'manual') {
-                this.onError('commons.msg.requestTimeout');
+            if (config?.errorMessageMode !== 'manual') {
+                const isTimeout = error instanceof DOMException && error.name === 'TimeoutError';
+                this.onError(isTimeout ? 'commons.msg.requestTimeout' : String(error));
             }
             throw error;
         }
