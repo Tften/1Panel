@@ -4,8 +4,12 @@ import { Toaster } from '@/components/ui/sonner';
 import { useGlobalStore } from '@/store/global';
 import { applyTheme, ensureSystemThemeListener } from '@/lib/theme';
 import { setRedirectHandler, type AuthRedirect } from '@/lib/http';
+import { AppLayout } from '@/components/layout';
 import LoginPage from '@/pages/login';
 import HomePage from '@/pages/home';
+import PlaceholderPage from '@/pages/placeholder';
+import { modules } from '@/router/modules';
+import type { AppRoute } from '@/router/types';
 
 function RequireAuth({ children }: { children: ReactNode }) {
     const isLogin = useGlobalStore((s) => s.isLogin);
@@ -39,6 +43,20 @@ function RedirectBridge() {
     return null;
 }
 
+function renderRoutes(routes: AppRoute[]) {
+    return routes.flatMap((route) => {
+        const children = route.children ? renderRoutes(route.children) : [];
+        if (route.children) {
+            return [
+                <Route key={route.name} path={route.path} element={<PlaceholderPage />}>
+                    {children}
+                </Route>,
+            ];
+        }
+        return [<Route key={route.name} path={route.path} element={<PlaceholderPage />} />];
+    });
+}
+
 export default function App() {
     useEffect(() => {
         applyTheme();
@@ -56,11 +74,22 @@ export default function App() {
                     path="/"
                     element={
                         <RequireAuth>
-                            <HomePage />
+                            <AppLayout>
+                                <HomePage />
+                            </AppLayout>
                         </RequireAuth>
                     }
                 />
-                <Route path="*" element={<Navigate to="/" replace />} />
+                <Route
+                    path="*"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <Routes>{renderRoutes(modules)}</Routes>
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
             </Routes>
             <Toaster />
         </BrowserRouter>
