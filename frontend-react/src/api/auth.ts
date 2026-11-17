@@ -9,6 +9,7 @@ export interface ReqLoginForm {
     captchaID: string;
     authMethod: string;
     authSource: 'local' | 'ldap';
+    language: string;
 }
 
 export interface ResLogin {

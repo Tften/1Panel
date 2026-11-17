@@ -66,6 +66,7 @@ export default function LoginPage() {
                 captchaID,
                 authMethod: 'local',
                 authSource: 'local',
+                language: useGlobalStore.getState().language,
             });
             if (res.data.mfaStatus === 'enable') {
                 toast.info('MFA 验证暂未在本阶段实现');
@@ -74,8 +75,19 @@ export default function LoginPage() {
             setLogin(true);
             await syncAuthInfo();
             navigate('/', { replace: true });
-        } catch {
-            if (needCaptcha) refreshCaptcha();
+        } catch (error) {
+            const message = error instanceof Error ? error.message : String(error);
+            if (message.toLowerCase().includes('csrf')) {
+                toast.error('CSRF 校验失败，请刷新页面重试');
+            } else if (message === 'ErrCaptchaCode' || message === 'ErrAuth') {
+                setNeedCaptcha(true);
+                refreshCaptcha();
+                toast.error(message === 'ErrCaptchaCode' ? '请输入验证码' : '用户名或密码错误');
+            } else if (message) {
+                toast.error(message);
+            } else {
+                toast.error('登录失败，请检查网络或安全入口');
+            }
         } finally {
             setSubmitting(false);
         }
