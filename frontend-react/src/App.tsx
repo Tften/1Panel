@@ -14,7 +14,8 @@ import type { AppRoute } from '@/router/types';
 function RequireAuth({ children }: { children: ReactNode }) {
     const isLogin = useGlobalStore((s) => s.isLogin);
     const entrance = useGlobalStore((s) => s.entrance);
-    if (!isLogin) {
+    const devBypass = import.meta.env.DEV;
+    if (!isLogin && !devBypass) {
         return <Navigate to={entrance ? `/entrance/${entrance}` : '/login'} replace />;
     }
     return <>{children}</>;
