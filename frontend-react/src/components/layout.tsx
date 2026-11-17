@@ -57,9 +57,11 @@ function MenuItem({ route, level = 0 }: { route: AppRoute; level?: number }) {
     if (!hasAccess) return null;
 
     if (hasChildren) {
+        const firstVisibleChild = route.children!.find((c) => !c.hidden);
+        const targetPath = firstVisibleChild?.path || route.path;
         return (
             <SidebarMenuItem>
-                <SidebarMenuButton isActive={isActive} tooltip={title}>
+                <SidebarMenuButton isActive={isActive} tooltip={title} onClick={() => navigate(targetPath)}>
                     {createElement(icon, { className: 'size-4' })}
                     <span>{title}</span>
                 </SidebarMenuButton>
