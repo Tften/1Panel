@@ -16,6 +16,8 @@ import WebsitePage from '@/pages/websites/index';
 import SSLPage from '@/pages/websites/ssl';
 import MysqlPage from '@/pages/databases/mysql';
 import ContainerPage from '@/pages/containers/index';
+import FileManagerPage from '@/pages/files/index';
+import MonitorPage from '@/pages/host/monitor';
 import { modules } from '@/router/modules';
 import type { AppRoute } from '@/router/types';
 
@@ -165,6 +167,26 @@ export default function App() {
                         <RequireAuth>
                             <AppLayout>
                                 <ContainerPage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/hosts/files"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <FileManagerPage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/hosts/monitor"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <MonitorPage />
                             </AppLayout>
                         </RequireAuth>
                     }
