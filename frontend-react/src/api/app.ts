@@ -61,14 +61,14 @@ export interface AppInstall {
     name: string;
 }
 
-export const searchApp = (req: AppReq) => http.post<AppResPage>('apps/search', req);
-export const getAppByKey = (key: string) => http.get<AppItem>(`apps/${key}`);
+export const searchApp = (req: AppReq) => http.post<AppResPage>('/apps/search', req);
+export const getAppByKey = (key: string) => http.get<AppItem>(`/apps/${key}`);
 export const getAppDetail = (appID: number, version: string, type: string) =>
-    http.get<AppDetail>(`apps/detail/${appID}/${version}/${type}`);
-export const getAppTags = () => http.get<{ key: string; name: string }[]>('apps/tags');
-export const installApp = (install: unknown) => http.post('apps/install', install);
+    http.get<AppDetail>(`/apps/detail/${appID}/${version}/${type}`);
+export const getAppTags = () => http.get<{ key: string; name: string }[]>('/apps/tags');
+export const installApp = (install: unknown) => http.post('/apps/install', install);
 export const installedOp = (op: { installId: number; operate: string; taskID?: string }) =>
-    http.post('apps/installed/op', op);
+    http.post('/apps/installed/op', op);
 
 export const getAppIconUrl = (appKey: string, icon = '') =>
     /^https?:\/\//i.test(icon) ? icon : `${import.meta.env.VITE_API_URL || '/api/v2'}/apps/icon/${encodeURIComponent(appKey)}`;
@@ -89,4 +89,4 @@ export interface AppInstalled {
 }
 
 export const searchAppInstalled = (search: { page: number; pageSize: number; name?: string }) =>
-    http.post<{ total: number; items: AppInstalled[] }>('apps/installed/search', search);
+    http.post<{ total: number; items: AppInstalled[] }>('/apps/installed/search', search);
