@@ -20,7 +20,13 @@ export interface ContainerSearch {
 }
 
 export const searchContainer = (params: ContainerSearch) =>
-    http.post<{ total: number; items: ContainerInfo[] }>('/containers/search', params);
+    http.post<{ total: number; items: ContainerInfo[] }>('/containers/search', {
+        state: 'all',
+        orderBy: 'createdAt',
+        order: 'descending',
+        filters: '',
+        ...params,
+    });
 
 export const containerOperate = (params: { names: string[]; operation: string }) =>
     http.post('/containers/operate', params);
