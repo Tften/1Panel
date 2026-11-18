@@ -15,6 +15,7 @@ import AppDetailPage from '@/pages/apps/detail';
 import AppInstalledPage from '@/pages/apps/installed';
 import WebsitePage from '@/pages/websites/index';
 import WebsiteCreatePage from '@/pages/websites/create';
+import RuntimePage from '@/pages/websites/runtime';
 import SSLPage from '@/pages/websites/ssl';
 import MysqlPage from '@/pages/databases/mysql';
 import PostgresqlPage from '@/pages/databases/postgresql';
@@ -29,6 +30,7 @@ import CronjobPage from '@/pages/cronjobs/index';
 import LogPage from '@/pages/logs/index';
 import AIPage from '@/pages/ai/index';
 import MCPPage from '@/pages/ai/mcp';
+import AgentsPage from '@/pages/ai/agents';
 import TerminalPage from '@/pages/terminal/index';
 import ToolboxPage from '@/pages/toolbox/index';
 import VMPage from '@/pages/vm/index';
@@ -181,6 +183,16 @@ export default function App() {
                         <RequireAuth>
                             <AppLayout>
                                 <SSLPage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/websites/runtimes/php"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <RuntimePage />
                             </AppLayout>
                         </RequireAuth>
                     }
@@ -371,6 +383,26 @@ export default function App() {
                         <RequireAuth>
                             <AppLayout>
                                 <MCPPage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/ai/agents/agent"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <AgentsPage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/ai/gpu/current"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <AgentsPage />
                             </AppLayout>
                         </RequireAuth>
                     }

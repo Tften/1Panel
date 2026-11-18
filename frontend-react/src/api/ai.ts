@@ -15,3 +15,33 @@ export const deleteOllamaModel = (ids: number[], force: boolean) =>
     http.post('/ai/ollama/model/del', { ids, forceDelete: force });
 
 export const loadOllamaModel = (name: string) => http.post('/ai/ollama/model/load', { name });
+
+export interface AgentItem {
+    id: number;
+    name: string;
+    remark: string;
+    providerName: string;
+    model: string;
+    status: string;
+    message: string;
+    websitePrimaryDomain: string;
+}
+
+export const pageAgents = (req: { page: number; pageSize: number; info?: string }) =>
+    http.post<{ total: number; items: AgentItem[] }>('/ai/agents/search', req);
+
+export const deleteAgent = (req: { id: number; taskID: string; forceDelete: boolean }) =>
+    http.post('/ai/agents/delete', req);
+
+export interface GPUDevice {
+    index: number;
+    name: string;
+    utilization: number;
+    memoryUsed: number;
+    memoryTotal: number;
+    temperature: number;
+    powerDraw: number;
+}
+
+export const loadGPUInfo = () =>
+    http.get<{ cudaVersion: string; driverVersion: string; gpu: GPUDevice[]; summaries?: GPUDevice[] }>('/ai/gpu/load');
