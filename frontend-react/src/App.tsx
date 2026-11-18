@@ -15,6 +15,7 @@ import BackupAccountsPage from '@/pages/settings/backup-accounts';
 import SnapshotPage from '@/pages/settings/snapshot';
 import AboutPage from '@/pages/settings/about';
 import SharePage from '@/pages/share/index';
+import APIKeysPage from '@/pages/settings/api-keys';
 import AppStorePage from '@/pages/apps/index';
 import AppDetailPage from '@/pages/apps/detail';
 import AppInstalledPage from '@/pages/apps/installed';
@@ -170,6 +171,16 @@ export default function App() {
                         <RequireAuth>
                             <AppLayout>
                                 <AboutPage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/settings/apikeys"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <APIKeysPage />
                             </AppLayout>
                         </RequireAuth>
                     }
