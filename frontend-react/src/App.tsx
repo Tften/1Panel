@@ -9,6 +9,9 @@ import LoginPage from '@/pages/login';
 import HomePage from '@/pages/home';
 import PlaceholderPage from '@/pages/placeholder';
 import SettingPage from '@/pages/settings/panel';
+import AppStorePage from '@/pages/apps/index';
+import AppDetailPage from '@/pages/apps/detail';
+import AppInstalledPage from '@/pages/apps/installed';
 import { modules } from '@/router/modules';
 import type { AppRoute } from '@/router/types';
 
@@ -88,6 +91,36 @@ export default function App() {
                         <RequireAuth>
                             <AppLayout>
                                 <SettingPage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/apps"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <AppStorePage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/apps/detail/:key"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <AppDetailPage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/apps/installed"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <AppInstalledPage />
                             </AppLayout>
                         </RequireAuth>
                     }
