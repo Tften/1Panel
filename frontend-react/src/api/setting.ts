@@ -55,3 +55,41 @@ export const getSettingBaseInfo = () =>
 
 export const loadUpgradeInfo = () =>
     http.get<{ latestVersion: string; newVersion: boolean; releaseNotes: string }>('/core/settings/upgrade');
+
+export interface License {
+    licenseName: string;
+    assigneeName: string;
+    productPro: string;
+    versionConstraint: string;
+    trial: boolean;
+    status: string;
+    message: string;
+}
+
+export const searchLicense = (params: { page: number; pageSize: number }) =>
+    http.post<{ total: number; items: License[] }>('/core/licenses/search', params);
+
+export const getLicenseStatus = () =>
+    http.get<{ productPro: string; status: string }>('/core/licenses/status');
+
+export const deleteLicense = (params: { ids: number }) => http.post('/core/licenses/del', params);
+
+export interface SnapshotInfo {
+    id: number;
+    name: string;
+    sourceAccounts: string[];
+    downloadAccount: string;
+    description: string;
+    status: string;
+    createdAt: string;
+    version: string;
+}
+
+export const searchSnapshotPage = (params: { page: number; pageSize: number }) =>
+    http.post<{ total: number; items: SnapshotInfo[] }>('/settings/snapshot/search', params);
+
+export const snapshotDelete = (params: { ids: number[]; deleteWithFile: boolean }) =>
+    http.post('/settings/snapshot/del', params);
+
+export const getMemo = () => http.get<string>('/core/settings/memo');
+export const updateMemo = (content: string) => http.post('/core/settings/memo', { content });

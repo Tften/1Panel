@@ -10,6 +10,9 @@ import LoginPage from '@/pages/login';
 import HomePage from '@/pages/home';
 import PlaceholderPage from '@/pages/placeholder';
 import SettingPage from '@/pages/settings/panel';
+import LicensePage from '@/pages/settings/license';
+import BackupAccountsPage from '@/pages/settings/backup-accounts';
+import SnapshotPage from '@/pages/settings/snapshot';
 import AppStorePage from '@/pages/apps/index';
 import AppDetailPage from '@/pages/apps/detail';
 import AppInstalledPage from '@/pages/apps/installed';
@@ -124,6 +127,36 @@ export default function App() {
                         <RequireAuth>
                             <AppLayout>
                                 <SettingPage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/settings/license"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <LicensePage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/settings/backupaccount"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <BackupAccountsPage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/settings/snapshot"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <SnapshotPage />
                             </AppLayout>
                         </RequireAuth>
                     }
