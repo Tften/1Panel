@@ -12,6 +12,7 @@ import SettingPage from '@/pages/settings/panel';
 import AppStorePage from '@/pages/apps/index';
 import AppDetailPage from '@/pages/apps/detail';
 import AppInstalledPage from '@/pages/apps/installed';
+import WebsitePage from '@/pages/websites/index';
 import { modules } from '@/router/modules';
 import type { AppRoute } from '@/router/types';
 
@@ -121,6 +122,16 @@ export default function App() {
                         <RequireAuth>
                             <AppLayout>
                                 <AppInstalledPage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/websites"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <WebsitePage />
                             </AppLayout>
                         </RequireAuth>
                     }
