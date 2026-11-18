@@ -24,6 +24,7 @@ import MonitorPage from '@/pages/host/monitor';
 import CronjobPage from '@/pages/cronjobs/index';
 import LogPage from '@/pages/logs/index';
 import AIPage from '@/pages/ai/index';
+import MCPPage from '@/pages/ai/mcp';
 import TerminalPage from '@/pages/terminal/index';
 import ToolboxPage from '@/pages/toolbox/index';
 import VMPage from '@/pages/vm/index';
@@ -256,6 +257,16 @@ export default function App() {
                         <RequireAuth>
                             <AppLayout>
                                 <AIPage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/ai/mcp"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <MCPPage />
                             </AppLayout>
                         </RequireAuth>
                     }
