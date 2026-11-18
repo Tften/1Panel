@@ -8,6 +8,7 @@ export interface AppItem {
     description: string;
     status: string;
     installed: boolean;
+    versions: string[];
     tags: { key: string; name: string }[];
     shortDescZh: string;
     shortDescEn: string;
@@ -33,11 +34,31 @@ export interface AppDetail {
     icon: string;
     version: string;
     readme: string;
-    params: { formFields: unknown[] };
+    params: { formFields: AppFormField[] };
     dockerCompose: string;
     image: string;
     memoryRequired: number;
     architectures: string;
+}
+
+export interface AppFormField {
+    type: string;
+    labelZh: string;
+    labelEn: string;
+    required: boolean;
+    default: unknown;
+    envKey: string;
+    key?: string;
+    values?: { label: string; value: string }[];
+    label?: Record<string, string>;
+    description?: Record<string, string>;
+}
+
+export interface AppInstall {
+    appDetailId: number;
+    params: Record<string, unknown>;
+    taskID: string;
+    name: string;
 }
 
 export const searchApp = (req: AppReq) => http.post<AppResPage>('apps/search', req);

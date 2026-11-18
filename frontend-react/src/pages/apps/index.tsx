@@ -113,9 +113,11 @@ export default function AppStorePage() {
                                     {app.installed ? (
                                         <Badge variant="outline">{t('app.installed', '已安装')}</Badge>
                                     ) : (
-                                        <Button size="sm" variant="default">
-                                            <Download className="mr-1 size-4" />
-                                            {t('app.install', '安装')}
+                                        <Button size="sm" variant="default" asChild>
+                                            <Link to={`/apps/detail/${app.key}`}>
+                                                <Download data-icon="inline-start" />
+                                                {t('app.install', '安装')}
+                                            </Link>
                                         </Button>
                                     )}
                                 </div>
