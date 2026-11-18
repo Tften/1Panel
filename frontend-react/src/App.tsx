@@ -113,7 +113,7 @@ export default function App() {
             <Routes>
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/entrance/:code" element={<LoginPage />} />
-                <Route path="/:code" element={<LoginPage />} />
+                <Route path="/:code([a-zA-Z0-9]{8,16})" element={<LoginPage />} />
                 <Route path="/expired" element={<div className="p-8">会话已过期，请重新登录。</div>} />
                 <Route path="/s/:code" element={<SharePage />} />
                 <Route
