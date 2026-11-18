@@ -8,6 +8,7 @@ import { AppLayout } from '@/components/layout';
 import LoginPage from '@/pages/login';
 import HomePage from '@/pages/home';
 import PlaceholderPage from '@/pages/placeholder';
+import SettingPage from '@/pages/settings/panel';
 import { modules } from '@/router/modules';
 import type { AppRoute } from '@/router/types';
 
@@ -77,6 +78,16 @@ export default function App() {
                         <RequireAuth>
                             <AppLayout>
                                 <HomePage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/settings/*"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <SettingPage />
                             </AppLayout>
                         </RequireAuth>
                     }
