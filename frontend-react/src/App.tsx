@@ -21,6 +21,7 @@ import PostgresqlPage from '@/pages/databases/postgresql';
 import MongodbPage from '@/pages/databases/mongodb';
 import RedisPage from '@/pages/databases/redis';
 import ContainerPage from '@/pages/containers/index';
+import ContainerResourcePage from '@/pages/containers/resource';
 import FileManagerPage from '@/pages/files/index';
 import MonitorPage from '@/pages/host/monitor';
 import CronjobPage from '@/pages/cronjobs/index';
@@ -229,6 +230,46 @@ export default function App() {
                         <RequireAuth>
                             <AppLayout>
                                 <ContainerPage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/containers/image"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <ContainerResourcePage type="image" />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/containers/network"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <ContainerResourcePage type="network" />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/containers/volume"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <ContainerResourcePage type="volume" />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/containers/compose"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <ContainerResourcePage type="compose" />
                             </AppLayout>
                         </RequireAuth>
                     }
