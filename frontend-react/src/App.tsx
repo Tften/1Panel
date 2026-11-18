@@ -18,6 +18,8 @@ import WebsiteCreatePage from '@/pages/websites/create';
 import SSLPage from '@/pages/websites/ssl';
 import MysqlPage from '@/pages/databases/mysql';
 import PostgresqlPage from '@/pages/databases/postgresql';
+import MongodbPage from '@/pages/databases/mongodb';
+import RedisPage from '@/pages/databases/redis';
 import ContainerPage from '@/pages/containers/index';
 import FileManagerPage from '@/pages/files/index';
 import MonitorPage from '@/pages/host/monitor';
@@ -197,6 +199,26 @@ export default function App() {
                         <RequireAuth>
                             <AppLayout>
                                 <PostgresqlPage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/databases/mongodb"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <MongodbPage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/databases/redis"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <RedisPage />
                             </AppLayout>
                         </RequireAuth>
                     }

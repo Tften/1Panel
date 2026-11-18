@@ -76,3 +76,37 @@ export const deletePostgresqlDB = (params: { id: number; forceDelete: boolean })
 
 export const loadDBBaseInfo = (type: string, database: string) =>
     http.post<{ name: string; port: number; containerName: string }>('/databases/common/info', { type, name: database });
+
+export interface MongodbDBInfo {
+    id: number;
+    name: string;
+    mongodbName: string;
+    from: string;
+    username: string;
+    description: string;
+}
+
+export const searchMongodbDBs = (params: SearchDBWithPage) =>
+    http.post<{ total: number; items: MongodbDBInfo[] }>('/databases/mongodb/search', params);
+
+export const deleteMongodbDB = (params: { id: number; forceDelete: boolean }) =>
+    http.post('/databases/mongodb/del', params);
+
+export const addMongodbDB = (params: { name: string; from: string; database: string; username: string; password: string; permission: string; description: string }) =>
+    http.post('/databases/mongodb', { ...params, password: btoa(unescape(encodeURIComponent(params.password))) });
+
+export interface RedisStatus {
+    tcp_port: string;
+    uptime_in_days: string;
+    connected_clients: string;
+    used_memory: string;
+    used_memory_rss: string;
+    used_memory_peak: string;
+    mem_fragmentation_ratio: string;
+    total_connections_received: string;
+    total_commands_processed: string;
+    instantaneous_ops_per_sec: string;
+}
+
+export const loadRedisStatus = (type: string, database: string) =>
+    http.post<RedisStatus>('/databases/redis/status', { type, name: database });
