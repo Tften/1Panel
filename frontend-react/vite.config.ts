@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => {
         },
         build: {
             outDir: '../core/cmd/server/web',
-            emptyOutDir: true,
+            emptyOutDir: false,
         },
         server: {
             host: '0.0.0.0',
