@@ -16,4 +16,15 @@ export const searchCronjobPage = (params: { page: number; pageSize: number; name
 
 export const deleteCronjob = (id: number) => http.post('/cronjobs/del', { id });
 export const editCronjob = (params: unknown) => http.post('/cronjobs/edit', params);
-export const addCronjob = (params: unknown) => http.post('/cronjobs', params);
+export const addCronjob = (params: {
+    name: string;
+    type: string;
+    spec: string;
+    command: string;
+    executor: string;
+    scriptMode: string;
+    user: string;
+    retainCopies: number;
+    retryTimes: number;
+    timeout: number;
+}) => http.post('/cronjobs', params);

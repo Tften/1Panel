@@ -4,20 +4,26 @@ import { toast } from 'sonner';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Skeleton } from '@/components/ui/skeleton';
-import { getOperationLogs, getLoginLogs, type OperationLog, type LoginLog } from '@/api/log';
+import { getOperationLogs, getLoginLogs, getTaskLogs, type OperationLog, type LoginLog, type TaskLog } from '@/api/log';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export default function LogPage() {
     const { t } = useTranslation();
     const [opLogs, setOpLogs] = useState<OperationLog[]>([]);
     const [loginLogs, setLoginLogs] = useState<LoginLog[]>([]);
+    const [taskLogs, setTaskLogs] = useState<TaskLog[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        Promise.all([getOperationLogs({ page: 1, pageSize: 50 }), getLoginLogs({ page: 1, pageSize: 50 })])
-            .then(([op, login]) => {
+        Promise.all([
+            getOperationLogs({ page: 1, pageSize: 50 }),
+            getLoginLogs({ page: 1, pageSize: 50 }),
+            getTaskLogs({ page: 1, pageSize: 50 }),
+        ])
+            .then(([op, login, task]) => {
                 setOpLogs(op.data.items);
                 setLoginLogs(login.data.items);
+                setTaskLogs(task.data.items || []);
             })
             .catch((error) => toast.error(String(error)))
             .finally(() => setLoading(false));
@@ -31,6 +37,7 @@ export default function LogPage() {
                 <TabsList>
                     <TabsTrigger value="operation">{t('log.operation', '操作日志')}</TabsTrigger>
                     <TabsTrigger value="login">{t('log.login', '登录日志')}</TabsTrigger>
+                    <TabsTrigger value="task">{t('log.task', '任务日志')}</TabsTrigger>
                 </TabsList>
                 <TabsContent value="operation">
                     <Card>
@@ -93,6 +100,28 @@ export default function LogPage() {
                                                 <TableCell>{log.user}</TableCell>
                                                 <TableCell>{log.status}</TableCell>
                                                 <TableCell>{log.message}</TableCell>
+                                                <TableCell>{log.createdAt}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            )}
+                        </CardContent>
+                    </Card>
+                </TabsContent>
+                <TabsContent value="task">
+                    <Card>
+                        <CardHeader><CardTitle>{t('log.task', '任务日志')}</CardTitle></CardHeader>
+                        <CardContent>
+                            {loading ? <Skeleton className="h-64 w-full" /> : (
+                                <Table>
+                                    <TableHeader><TableRow><TableHead>{t('log.name', '名称')}</TableHead><TableHead>{t('log.type', '类型')}</TableHead><TableHead>{t('log.status', '状态')}</TableHead><TableHead>{t('log.time', '时间')}</TableHead></TableRow></TableHeader>
+                                    <TableBody>
+                                        {taskLogs.map((log) => (
+                                            <TableRow key={log.id}>
+                                                <TableCell>{log.name}</TableCell>
+                                                <TableCell>{log.type}</TableCell>
+                                                <TableCell>{log.status}</TableCell>
                                                 <TableCell>{log.createdAt}</TableCell>
                                             </TableRow>
                                         ))}
