@@ -45,3 +45,20 @@ export interface GPUDevice {
 
 export const loadGPUInfo = () =>
     http.get<{ cudaVersion: string; driverVersion: string; gpu: GPUDevice[]; summaries?: GPUDevice[] }>('/ai/gpu/load');
+
+export interface McpServer {
+    id: number;
+    name: string;
+    status: string;
+    baseUrl: string;
+    ssePath: string;
+    port: number;
+    containerName: string;
+    message: string;
+}
+
+export const pageMcpServer = (req: { page: number; pageSize: number; name?: string }) =>
+    http.post<{ total: number; items: McpServer[] }>('/ai/mcp/search', req);
+
+export const deleteMcpServer = (req: { id: number }) => http.post('/ai/mcp/server/del', req);
+export const operateMcpServer = (req: { id: number; operate: string }) => http.post('/ai/mcp/server/op', req);

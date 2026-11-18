@@ -31,6 +31,7 @@ import LogPage from '@/pages/logs/index';
 import AIPage from '@/pages/ai/index';
 import MCPPage from '@/pages/ai/mcp';
 import AgentsPage from '@/pages/ai/agents';
+import McpServerPage from '@/pages/ai/mcp-servers';
 import TerminalPage from '@/pages/terminal/index';
 import ToolboxPage from '@/pages/toolbox/index';
 import VMPage from '@/pages/vm/index';
@@ -393,6 +394,16 @@ export default function App() {
                         <RequireAuth>
                             <AppLayout>
                                 <AgentsPage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/ai/mcp/server"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <McpServerPage />
                             </AppLayout>
                         </RequireAuth>
                     }
