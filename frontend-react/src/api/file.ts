@@ -6,17 +6,26 @@ export interface FileInfo {
     size: number;
     isDir: boolean;
     modTime: string;
-    mode: string;
+    mode: number;
     user: string;
     group: string;
 }
 
+export interface FileListResponse {
+    items: FileInfo[];
+    itemTotal: number;
+    path: string;
+}
+
 export const getFilesList = (params: { path: string; page: number; pageSize: number; search?: string }) =>
-    http.post<{ items: FileInfo[]; total: number }>('files/search', params);
+    http.post<FileListResponse>('files/search', { ...params, expand: true, showHidden: true });
 
-export const createFile = (form: { path: string; name: string; isDir: boolean; content?: string }) =>
-    http.post('files', form);
+export const createFile = (form: { path: string; isDir: boolean; name?: string }) => http.post('files', form);
 
-export const deleteFile = (params: { paths: string[] }) => http.post('files/del', params);
+export const deleteFile = (form: { path: string; isDir: boolean; forceDelete: boolean }) => http.post('files/del', form);
 
-export const downloadFile = (path: string) => http.post('files/download', { path });
+export const getFileContent = (path: string) => http.post<{ content: string }>('files/content', { path, expand: true, page: 1, pageSize: 1 });
+export const updateFileContent = (path: string, content: string) => http.post('files/save', { path, content });
+
+export const downloadFileUrl = (path: string) =>
+    `${import.meta.env.VITE_API_URL || '/api/v2'}/files/download?path=${encodeURIComponent(path)}`;

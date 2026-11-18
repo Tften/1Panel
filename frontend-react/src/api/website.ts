@@ -28,7 +28,36 @@ export interface WebSiteSearch {
 export const searchWebsites = (req: WebSiteSearch) =>
     http.post<{ total: number; items: WebsiteRes[] }>('/websites/search', req);
 
-export const createWebsite = (req: unknown) => http.post('/websites', req);
+export const preCheck = () => http.post<unknown[]>('/websites/check', {});
+
+export interface WebSiteCreateReq {
+    primaryDomain: string;
+    type: string;
+    alias: string;
+    remark: string;
+    appType: string;
+    appInstallId: number;
+    webSiteGroupId: number;
+    otherDomains: string;
+    proxy: string;
+    runtimeID?: number;
+    IPV6: boolean;
+    enableFtp: boolean;
+    ftpUser: string;
+    ftpPassword: string;
+    proxyType: string;
+    port: number;
+    runtimeType: string;
+    taskID: string;
+    createDb: boolean;
+    enableSSL: boolean;
+    domains: { domain: string; port: number; ssl: boolean }[];
+    name: string;
+    algorithm: string;
+    servers: unknown[];
+}
+
+export const createWebsite = (req: WebSiteCreateReq) => http.post('/websites', req);
 export const deleteWebsite = (req: { id: number; deleteApp: boolean; deleteBackup: boolean; forceDelete: boolean }) =>
     http.post('/websites/del', req);
 export const opWebsite = (req: { id: number; operate: string }) => http.post('/websites/operate', req);

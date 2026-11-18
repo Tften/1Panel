@@ -13,6 +13,7 @@ import AppStorePage from '@/pages/apps/index';
 import AppDetailPage from '@/pages/apps/detail';
 import AppInstalledPage from '@/pages/apps/installed';
 import WebsitePage from '@/pages/websites/index';
+import WebsiteCreatePage from '@/pages/websites/create';
 import SSLPage from '@/pages/websites/ssl';
 import MysqlPage from '@/pages/databases/mysql';
 import ContainerPage from '@/pages/containers/index';
@@ -145,6 +146,16 @@ export default function App() {
                         <RequireAuth>
                             <AppLayout>
                                 <WebsitePage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/websites/create"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <WebsiteCreatePage />
                             </AppLayout>
                         </RequireAuth>
                     }
