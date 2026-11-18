@@ -13,6 +13,7 @@ import AppStorePage from '@/pages/apps/index';
 import AppDetailPage from '@/pages/apps/detail';
 import AppInstalledPage from '@/pages/apps/installed';
 import WebsitePage from '@/pages/websites/index';
+import SSLPage from '@/pages/websites/ssl';
 import { modules } from '@/router/modules';
 import type { AppRoute } from '@/router/types';
 
@@ -132,6 +133,16 @@ export default function App() {
                         <RequireAuth>
                             <AppLayout>
                                 <WebsitePage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/websites/ssl"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <SSLPage />
                             </AppLayout>
                         </RequireAuth>
                     }
