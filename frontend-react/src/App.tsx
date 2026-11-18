@@ -24,6 +24,7 @@ import ContainerPage from '@/pages/containers/index';
 import ContainerResourcePage from '@/pages/containers/resource';
 import FileManagerPage from '@/pages/files/index';
 import MonitorPage from '@/pages/host/monitor';
+import HostSubPage from '@/pages/host/sub';
 import CronjobPage from '@/pages/cronjobs/index';
 import LogPage from '@/pages/logs/index';
 import AIPage from '@/pages/ai/index';
@@ -290,6 +291,46 @@ export default function App() {
                         <RequireAuth>
                             <AppLayout>
                                 <MonitorPage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/hosts/firewall/rules"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <HostSubPage type="firewall" />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/hosts/ssh/ssh"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <HostSubPage type="ssh" />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/hosts/process/process"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <HostSubPage type="process" />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/hosts/disk"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <HostSubPage type="disk" />
                             </AppLayout>
                         </RequireAuth>
                     }
