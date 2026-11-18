@@ -20,6 +20,7 @@ import FileManagerPage from '@/pages/files/index';
 import MonitorPage from '@/pages/host/monitor';
 import CronjobPage from '@/pages/cronjobs/index';
 import LogPage from '@/pages/logs/index';
+import AIPage from '@/pages/ai/index';
 import { modules } from '@/router/modules';
 import type { AppRoute } from '@/router/types';
 
@@ -209,6 +210,16 @@ export default function App() {
                         <RequireAuth>
                             <AppLayout>
                                 <LogPage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/ai/ollama"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <AIPage />
                             </AppLayout>
                         </RequireAuth>
                     }
