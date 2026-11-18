@@ -236,3 +236,11 @@ export const setRedirectHandler = (handler?: (redirect: AuthRedirect) => void) =
     (http as unknown as { onRedirect: (redirect: AuthRedirect) => void }).onRedirect =
         handler ?? (() => undefined);
 };
+
+export const setErrorHandler = (handler?: ErrorNotifier) => {
+    (http as unknown as { onError: ErrorNotifier }).onError = handler ?? (() => undefined);
+};
+
+export const setReloadHandler = (handler?: () => void) => {
+    (http as unknown as { onReload: () => void }).onReload = handler ?? (() => undefined);
+};

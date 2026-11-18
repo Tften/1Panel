@@ -18,7 +18,7 @@ export default function SSLPage() {
     useEffect(() => {
         searchSSL({ page: 1, pageSize: 100 })
             .then((res) => setSsls(res.data.items))
-            .catch(() => undefined)
+            .catch((error) => toast.error(String(error)))
             .finally(() => setLoading(false));
     }, []);
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -20,7 +21,7 @@ export default function AppStorePage() {
     const [total, setTotal] = useState(0);
 
     useEffect(() => {
-        getAppTags().then((res) => setTags(res.data)).catch(() => undefined);
+        getAppTags().then((res) => setTags(res.data)).catch((error) => toast.error(String(error)));
     }, []);
 
     useEffect(() => {
@@ -34,7 +35,7 @@ export default function AppStorePage() {
                 setApps(res.data.items);
                 setTotal(res.data.total);
             })
-            .catch(() => undefined)
+            .catch((error) => toast.error(String(error)))
             .finally(() => setLoading(false));
     }, [page, search, selectedTag]);
 

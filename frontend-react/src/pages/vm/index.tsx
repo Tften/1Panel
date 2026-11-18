@@ -17,7 +17,7 @@ export default function VMPage() {
     useEffect(() => {
         searchVM({ page: 1, pageSize: 100 })
             .then((res) => setVms(res.data.items))
-            .catch(() => undefined)
+            .catch((error) => toast.error(String(error)))
             .finally(() => setLoading(false));
     }, []);
 

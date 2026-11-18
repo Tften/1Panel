@@ -25,7 +25,7 @@ export default function WebsitePage() {
                 setWebsites(res.data.items);
                 setTotal(res.data.total);
             })
-            .catch(() => undefined)
+            .catch((error) => toast.error(String(error)))
             .finally(() => setLoading(false));
     }, [page, search]);
 

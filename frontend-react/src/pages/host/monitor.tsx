@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { loadMonitor } from '@/api/host';
@@ -20,7 +21,7 @@ export default function MonitorPage() {
     useEffect(() => {
         loadMonitor({ type: 'host', startTime: '', endTime: '' })
             .then((res) => setData(res.data))
-            .catch(() => undefined)
+            .catch((error) => toast.error(String(error)))
             .finally(() => setLoading(false));
     }, []);
 

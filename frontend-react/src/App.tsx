@@ -1,9 +1,10 @@
 import { useEffect, type ReactNode } from 'react';
 import { BrowserRouter, Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { Toaster } from '@/components/ui/sonner';
+import { toast } from 'sonner';
 import { useGlobalStore } from '@/store/global';
 import { applyTheme, ensureSystemThemeListener } from '@/lib/theme';
-import { setRedirectHandler, type AuthRedirect } from '@/lib/http';
+import { setRedirectHandler, setErrorHandler, setReloadHandler, type AuthRedirect } from '@/lib/http';
 import { AppLayout } from '@/components/layout';
 import LoginPage from '@/pages/login';
 import HomePage from '@/pages/home';
@@ -82,6 +83,14 @@ export default function App() {
     useEffect(() => {
         applyTheme();
         ensureSystemThemeListener();
+        setErrorHandler((message) => {
+            toast.error(message);
+        });
+        setReloadHandler(() => window.location.reload());
+        return () => {
+            setErrorHandler(undefined);
+            setReloadHandler(undefined);
+        };
     }, []);
 
     return (

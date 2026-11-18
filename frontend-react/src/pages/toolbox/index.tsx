@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { getSystemFiles } from '@/api/toolbox';
@@ -12,7 +13,7 @@ export default function ToolboxPage() {
     useEffect(() => {
         getSystemFiles()
             .then((res) => setFiles(res.data))
-            .catch(() => undefined)
+            .catch((error) => toast.error(String(error)))
             .finally(() => setLoading(false));
     }, []);
 

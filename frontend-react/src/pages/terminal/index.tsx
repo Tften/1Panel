@@ -17,7 +17,7 @@ export default function TerminalPage() {
     useEffect(() => {
         searchHosts({ page: 1, pageSize: 100 })
             .then((res) => setHosts(res.data.items))
-            .catch(() => undefined)
+            .catch((error) => toast.error(String(error)))
             .finally(() => setLoading(false));
     }, []);
 

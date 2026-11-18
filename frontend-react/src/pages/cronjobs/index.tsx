@@ -17,7 +17,7 @@ export default function CronjobPage() {
     useEffect(() => {
         searchCronjobPage({ page: 1, pageSize: 100 })
             .then((res) => setJobs(res.data.items))
-            .catch(() => undefined)
+            .catch((error) => toast.error(String(error)))
             .finally(() => setLoading(false));
     }, []);
 

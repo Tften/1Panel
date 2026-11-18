@@ -17,7 +17,7 @@ export default function ContainerPage() {
     useEffect(() => {
         searchContainer({ page: 1, pageSize: 100 })
             .then((res) => setContainers(res.data.items))
-            .catch(() => undefined)
+            .catch((error) => toast.error(String(error)))
             .finally(() => setLoading(false));
     }, []);
 
