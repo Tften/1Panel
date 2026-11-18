@@ -21,6 +21,9 @@ import MonitorPage from '@/pages/host/monitor';
 import CronjobPage from '@/pages/cronjobs/index';
 import LogPage from '@/pages/logs/index';
 import AIPage from '@/pages/ai/index';
+import TerminalPage from '@/pages/terminal/index';
+import ToolboxPage from '@/pages/toolbox/index';
+import VMPage from '@/pages/vm/index';
 import { modules } from '@/router/modules';
 import type { AppRoute } from '@/router/types';
 
@@ -220,6 +223,36 @@ export default function App() {
                         <RequireAuth>
                             <AppLayout>
                                 <AIPage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/terminals"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <TerminalPage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/toolbox"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <ToolboxPage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/vms"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <VMPage />
                             </AppLayout>
                         </RequireAuth>
                     }
