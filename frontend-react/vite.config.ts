@@ -10,6 +10,10 @@ export default defineConfig(({ mode }) => {
         resolve: {
             alias: { '@': resolve(import.meta.dirname, './src') },
         },
+        build: {
+            outDir: '../core/cmd/server/web',
+            emptyOutDir: true,
+        },
         server: {
             host: '0.0.0.0',
             port: 4005,

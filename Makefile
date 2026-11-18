@@ -6,7 +6,7 @@ GOOS=$(shell go env GOOS )
 
 BASE_PATH := $(shell pwd)
 BUILD_PATH = $(BASE_PATH)/build
-WEB_PATH=$(BASE_PATH)/frontend
+WEB_PATH=$(BASE_PATH)/frontend-react
 ASSERT_PATH= $(BASE_PATH)/core/cmd/server/web/assets
 
 CORE_PATH=$(BASE_PATH)/core

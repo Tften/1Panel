@@ -42,7 +42,7 @@ export const websiteRouter: AppRoute = {
     meta: { title: 'menu.website', icon: 'p-website' },
     children: [
         { path: '/websites', name: 'Website', meta: { title: 'menu.website', icon: 'p-website', permission: 'website_view' } },
-        { path: '/websites/:id/config/:tab', name: 'WebsiteConfig', hidden: true, props: true, meta: { permission: 'website_view', activeMenu: '/websites', ignoreTab: 'true' } },
+        { path: '/websites/:id/config/:tab', name: 'WebsiteConfig', hidden: true, props: true, meta: { permission: 'website_view', activeMenu: '/websites', ignoreTab: true } },
         { path: '/websites/ssl', name: 'SSL', meta: { title: 'menu.ssl', icon: 'p-ssl-menu', permission: 'website_cert_view' } },
         { path: '/websites/ssl/ca', name: 'SSL-CA', hidden: true, meta: { title: 'menu.ssl', permission: 'website_cert_view', activeMenu: '/websites/ssl', detail: 'ssl.selfSigned' } },
         { path: '/websites/ssl/acme-account', name: 'SSL-ACME', hidden: true, meta: { title: 'menu.ssl', permission: 'website_cert_view', activeMenu: '/websites/ssl', detail: 'website.acmeAccountManage' } },
@@ -66,11 +66,11 @@ export const databaseRouter: AppRoute = {
     children: [
         { path: '/databases', name: 'Database', meta: {  } },
         { path: 'mysql', name: 'MySQL', hidden: true, meta: { title: 'MySQL', permission: 'database_view', activeMenu: '/databases' } },
-        { path: 'mysql/setting/:type/:database', name: 'MySQL-Setting', hidden: true, props: true, meta: { permission: 'database_view', activeMenu: '/databases', ignoreTab: 'true' } },
+        { path: 'mysql/setting/:type/:database', name: 'MySQL-Setting', hidden: true, props: true, meta: { permission: 'database_view', activeMenu: '/databases', ignoreTab: true } },
         { path: 'mysql/remote', name: 'MySQL-Remote', hidden: true, meta: { title: 'MySQL', permission: 'database_view', activeMenu: '/databases', detail: 'database.remote' } },
         { path: 'postgresql', name: 'PostgreSQL', hidden: true, meta: { title: 'PostgreSQL', permission: 'database_view', activeMenu: '/databases' } },
         { path: 'postgresql/remote', name: 'PostgreSQL-Remote', hidden: true, meta: { title: 'PostgreSQL', permission: 'database_view', activeMenu: '/databases', detail: 'database.remote' } },
-        { path: 'postgresql/setting/:type/:database', name: 'PostgreSQL-Setting', hidden: true, props: true, meta: { permission: 'database_view', activeMenu: '/databases', ignoreTab: 'true' } },
+        { path: 'postgresql/setting/:type/:database', name: 'PostgreSQL-Setting', hidden: true, props: true, meta: { permission: 'database_view', activeMenu: '/databases', ignoreTab: true } },
         { path: 'redis', name: 'Redis', hidden: true, meta: { title: 'Redis', permission: 'database_view', activeMenu: '/databases' } },
         { path: 'redis/remote', name: 'Redis-Remote', hidden: true, meta: { title: 'Redis', permission: 'database_view', activeMenu: '/databases', detail: 'database.remote' } },
         { path: 'mongodb', name: 'MongoDB', hidden: true, meta: { title: 'MongoDB', permission: 'database_view', activeMenu: '/databases' } },
@@ -88,7 +88,7 @@ export const containerRouter: AppRoute = {
         { path: '/containers', name: 'Container', meta: {  } },
         { path: 'dashboard', name: 'ContainerDashboard', hidden: true, props: true, meta: { title: 'menu.home', permission: 'container_view', activeMenu: '/containers' } },
         { path: 'container', name: 'ContainerItem', hidden: true, props: true, meta: { title: 'menu.container', permission: 'container_view', activeMenu: '/containers' } },
-        { path: 'container/operate', name: 'ContainerCreate', hidden: true, props: true, meta: { permission: 'container_view', activeMenu: '/containers', ignoreTab: 'true' } },
+        { path: 'container/operate', name: 'ContainerCreate', hidden: true, props: true, meta: { permission: 'container_view', activeMenu: '/containers', ignoreTab: true } },
         { path: 'image', name: 'Image', hidden: true, meta: { title: 'container.image', permission: 'container_view', activeMenu: '/containers' } },
         { path: 'network', name: 'Network', hidden: true, meta: { title: 'container.network', permission: 'container_view', activeMenu: '/containers' } },
         { path: 'volume', name: 'Volume', hidden: true, meta: { title: 'container.volume', permission: 'container_view', activeMenu: '/containers' } },
@@ -130,7 +130,7 @@ export const terminalRouter: AppRoute = {
     redirect: '/terminal',
     meta: { title: 'menu.terminal', icon: 'p-terminal2' },
     children: [
-        { path: '/terminal', name: 'Terminal', props: true, meta: { protectedRoleOnly: 'true' } },
+        { path: '/terminal', name: 'Terminal', props: true, meta: { protectedRoleOnly: true } },
     ],
 };
 
@@ -143,7 +143,7 @@ export const cronjobRouter: AppRoute = {
     children: [
         { path: '/cronjobs', name: 'Cronjob', meta: {  } },
         { path: 'cronjob', name: 'CronjobItem', hidden: true, meta: { title: 'menu.cronjob', permission: 'cronjob_view', activeMenu: '/cronjobs' } },
-        { path: 'cronjob/operate', name: 'CronjobOperate', hidden: true, meta: { permission: 'cronjob_view', activeMenu: '/cronjobs', ignoreTab: 'true' } },
+        { path: 'cronjob/operate', name: 'CronjobOperate', hidden: true, meta: { permission: 'cronjob_view', activeMenu: '/cronjobs', ignoreTab: true } },
         { path: 'library', name: 'Library', hidden: true, meta: { title: 'cronjob.library.library', permission: 'cronjob_view', activeMenu: '/cronjobs' } },
     ],
 };
@@ -159,7 +159,7 @@ export const toolboxRouter: AppRoute = {
         { path: 'device', name: 'Device', hidden: true, meta: { title: 'toolbox.device.toolbox', permission: 'toolbox_view', activeMenu: '/toolbox' } },
         { path: 'supervisor', name: 'Supervisor', hidden: true, meta: { title: 'menu.supervisor', permission: 'toolbox_view', activeMenu: '/toolbox' } },
         { path: 'clam', name: 'Clam', hidden: true, meta: { title: 'toolbox.clam.clam', permission: 'toolbox_view', activeMenu: '/toolbox' } },
-        { path: 'clam/setting', name: 'Clam-Setting', hidden: true, meta: { permission: 'toolbox_view', activeMenu: '/toolbox', ignoreTab: 'true' } },
+        { path: 'clam/setting', name: 'Clam-Setting', hidden: true, meta: { permission: 'toolbox_view', activeMenu: '/toolbox', ignoreTab: true } },
         { path: 'ftp', name: 'FTP', hidden: true, meta: { title: 'FTP', permission: 'toolbox_view', activeMenu: '/toolbox' } },
         { path: 'fail2ban', name: 'Fail2ban', hidden: true, meta: { title: 'Fail2Ban', permission: 'toolbox_view', activeMenu: '/toolbox' } },
         { path: 'clean', name: 'Clean', hidden: true, meta: { title: 'setting.diskClean', permission: 'toolbox_view', activeMenu: '/toolbox' } },
@@ -192,14 +192,14 @@ export const settingRouter: AppRoute = {
     children: [
         { path: '/settings', name: 'Setting', meta: {  } },
         { path: 'apikeys', name: 'APIKeys', hidden: true, meta: { title: 'apiKeyManagement.title', activeMenu: '/settings' } },
-        { path: 'panel', name: 'Panel', hidden: true, meta: { title: 'setting.panel', adminOnly: 'true', activeMenu: '/settings' } },
+        { path: 'panel', name: 'Panel', hidden: true, meta: { title: 'setting.panel', adminOnly: true, activeMenu: '/settings' } },
         { path: 'alert', name: 'Alert', hidden: true, meta: { title: 'xpack.alert.alertNotice', permission: 'alert_view', activeMenu: '/settings' } },
         { path: 'backupaccount', name: 'BackupAccount', hidden: true, meta: { title: 'setting.backupAccount', permission: 'backup_view', activeMenu: '/settings' } },
-        { path: 'license', name: 'License', hidden: true, meta: { title: 'setting.license', adminOnly: 'true', activeMenu: '/settings' } },
-        { path: 'about', name: 'About', hidden: true, meta: { title: 'setting.about', adminOnly: 'true', activeMenu: '/settings' } },
-        { path: 'safe', name: 'Safe', hidden: true, meta: { title: 'setting.safe', adminOnly: 'true', activeMenu: '/settings' } },
-        { path: 'snapshot', name: 'Snapshot', hidden: true, meta: { title: 'setting.snapshot', adminOnly: 'true', activeMenu: '/settings' } },
-        { path: 'expired', name: 'Expired', hidden: true, meta: { activeMenu: '/settings', ignoreTab: 'true' } },
+        { path: 'license', name: 'License', hidden: true, meta: { title: 'setting.license', adminOnly: true, activeMenu: '/settings' } },
+        { path: 'about', name: 'About', hidden: true, meta: { title: 'setting.about', adminOnly: true, activeMenu: '/settings' } },
+        { path: 'safe', name: 'Safe', hidden: true, meta: { title: 'setting.safe', adminOnly: true, activeMenu: '/settings' } },
+        { path: 'snapshot', name: 'Snapshot', hidden: true, meta: { title: 'setting.snapshot', adminOnly: true, activeMenu: '/settings' } },
+        { path: 'expired', name: 'Expired', hidden: true, meta: { activeMenu: '/settings', ignoreTab: true } },
     ],
 };
 

@@ -112,7 +112,7 @@ export default function SettingPage() {
         switch (field.type) {
             case 'select':
                 return (
-                    <Select value={stringValue} onValueChange={(v) => onSave(field.key, v)}>
+                    <Select value={stringValue} onValueChange={(v) => onSave(field.key, v ?? '')}>
                         <SelectTrigger>
                             <SelectValue />
                         </SelectTrigger>

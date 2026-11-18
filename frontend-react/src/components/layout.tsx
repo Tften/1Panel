@@ -174,15 +174,17 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                                 <Languages className="size-4" />
                             </Button>
                             <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                    <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                                        <Avatar className="h-8 w-8">
-                                            <AvatarFallback>
-                                                <User className="size-4" />
-                                            </AvatarFallback>
-                                        </Avatar>
-                                    </Button>
-                                </DropdownMenuTrigger>
+                                <DropdownMenuTrigger
+                                    render={
+                                        <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                                            <Avatar className="h-8 w-8">
+                                                <AvatarFallback>
+                                                    <User className="size-4" />
+                                                </AvatarFallback>
+                                            </Avatar>
+                                        </Button>
+                                    }
+                                />
                                 <DropdownMenuContent align="end">
                                     <DropdownMenuLabel>{t('commons.login.username', '用户')}</DropdownMenuLabel>
                                     <DropdownMenuSeparator />
