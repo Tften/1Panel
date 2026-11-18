@@ -12,6 +12,7 @@ export interface RequestConfig {
     errorMessageMode?: 'default' | 'manual';
     timeout?: number;
     headers?: Record<string, string>;
+    params?: Record<string, string | number | boolean | undefined>;
 }
 
 export class ApiError<T = unknown> extends Error {
@@ -181,8 +182,9 @@ export class HttpClient {
     ): Promise<ResultData<T>> {
         const headers = this.buildHeaders(url, method, config);
         let response: Response;
+        const urlWithParams = config?.params ? `${this.baseURL}${url}?${new URLSearchParams(Object.entries(config.params).filter(([, v]) => v !== undefined).map(([k, v]) => [k, String(v)])).toString()}` : `${this.baseURL}${url}`;
         try {
-            response = await this.fetchImpl(`${this.baseURL}${url}`, {
+            response = await this.fetchImpl(urlWithParams, {
                 method,
                 credentials: 'include',
                 headers: {
@@ -214,8 +216,8 @@ export class HttpClient {
         return this.handleBusinessCode(data, config);
     }
 
-    get<T>(url: string, config?: RequestConfig) {
-        return this.request<T>('GET', url, undefined, config);
+    get<T>(url: string, config?: RequestConfig, extraConfig?: RequestConfig) {
+        return this.request<T>('GET', url, undefined, { ...config, ...extraConfig });
     }
     post<T>(url: string, body?: unknown, config?: RequestConfig) {
         return this.request<T>('POST', url, body, config);

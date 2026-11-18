@@ -23,7 +23,7 @@ export default function AgentsPage() {
         ])
             .then(([a, g]) => {
                 setAgents(a.data.items || []);
-                setGpus(g.data.gpu || g.data.summaries || []);
+                setGpus(g.data.gpu || []);
             })
             .catch((error) => toast.error(String(error)))
             .finally(() => setLoading(false));
