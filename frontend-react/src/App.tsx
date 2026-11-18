@@ -14,6 +14,7 @@ import AppDetailPage from '@/pages/apps/detail';
 import AppInstalledPage from '@/pages/apps/installed';
 import WebsitePage from '@/pages/websites/index';
 import SSLPage from '@/pages/websites/ssl';
+import MysqlPage from '@/pages/databases/mysql';
 import { modules } from '@/router/modules';
 import type { AppRoute } from '@/router/types';
 
@@ -143,6 +144,16 @@ export default function App() {
                         <RequireAuth>
                             <AppLayout>
                                 <SSLPage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/databases/mysql"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <MysqlPage />
                             </AppLayout>
                         </RequireAuth>
                     }
