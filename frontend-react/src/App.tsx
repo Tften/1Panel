@@ -15,6 +15,7 @@ import AppInstalledPage from '@/pages/apps/installed';
 import WebsitePage from '@/pages/websites/index';
 import SSLPage from '@/pages/websites/ssl';
 import MysqlPage from '@/pages/databases/mysql';
+import ContainerPage from '@/pages/containers/index';
 import { modules } from '@/router/modules';
 import type { AppRoute } from '@/router/types';
 
@@ -154,6 +155,16 @@ export default function App() {
                         <RequireAuth>
                             <AppLayout>
                                 <MysqlPage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/containers"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <ContainerPage />
                             </AppLayout>
                         </RequireAuth>
                     }
