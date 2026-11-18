@@ -24,6 +24,8 @@ import AIPage from '@/pages/ai/index';
 import TerminalPage from '@/pages/terminal/index';
 import ToolboxPage from '@/pages/toolbox/index';
 import VMPage from '@/pages/vm/index';
+import ExampleExtensionPage from '@/pages/extensions/example';
+import { extensionRoutes } from '@/extensions/routes';
 import { modules } from '@/router/modules';
 import type { AppRoute } from '@/router/types';
 
@@ -258,11 +260,21 @@ export default function App() {
                     }
                 />
                 <Route
+                    path="/extensions/example"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <ExampleExtensionPage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
                     path="*"
                     element={
                         <RequireAuth>
                             <AppLayout>
-                                <Routes>{renderRoutes(modules)}</Routes>
+                                <Routes>{renderRoutes([...modules, ...extensionRoutes])}</Routes>
                             </AppLayout>
                         </RequireAuth>
                     }
