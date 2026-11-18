@@ -13,6 +13,8 @@ import SettingPage from '@/pages/settings/panel';
 import LicensePage from '@/pages/settings/license';
 import BackupAccountsPage from '@/pages/settings/backup-accounts';
 import SnapshotPage from '@/pages/settings/snapshot';
+import AboutPage from '@/pages/settings/about';
+import SharePage from '@/pages/share/index';
 import AppStorePage from '@/pages/apps/index';
 import AppDetailPage from '@/pages/apps/detail';
 import AppInstalledPage from '@/pages/apps/installed';
@@ -111,6 +113,7 @@ export default function App() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/entrance/:code" element={<LoginPage />} />
                 <Route path="/expired" element={<div className="p-8">会话已过期，请重新登录。</div>} />
+                <Route path="/s/:code" element={<SharePage />} />
                 <Route
                     path="/"
                     element={
@@ -157,6 +160,16 @@ export default function App() {
                         <RequireAuth>
                             <AppLayout>
                                 <SnapshotPage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/settings/about"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <AboutPage />
                             </AppLayout>
                         </RequireAuth>
                     }
