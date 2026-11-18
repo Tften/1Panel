@@ -18,6 +18,7 @@ import MysqlPage from '@/pages/databases/mysql';
 import ContainerPage from '@/pages/containers/index';
 import FileManagerPage from '@/pages/files/index';
 import MonitorPage from '@/pages/host/monitor';
+import CronjobPage from '@/pages/cronjobs/index';
 import { modules } from '@/router/modules';
 import type { AppRoute } from '@/router/types';
 
@@ -187,6 +188,16 @@ export default function App() {
                         <RequireAuth>
                             <AppLayout>
                                 <MonitorPage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/cronjobs"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <CronjobPage />
                             </AppLayout>
                         </RequireAuth>
                     }
