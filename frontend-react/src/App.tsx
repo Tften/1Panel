@@ -477,7 +477,7 @@ export default function App() {
                     }
                 />
                 <Route
-                    path="/terminals"
+                    path="/terminal"
                     element={
                         <RequireAuth>
                             <AppLayout>
