@@ -16,6 +16,7 @@ import WebsitePage from '@/pages/websites/index';
 import WebsiteCreatePage from '@/pages/websites/create';
 import SSLPage from '@/pages/websites/ssl';
 import MysqlPage from '@/pages/databases/mysql';
+import PostgresqlPage from '@/pages/databases/postgresql';
 import ContainerPage from '@/pages/containers/index';
 import FileManagerPage from '@/pages/files/index';
 import MonitorPage from '@/pages/host/monitor';
@@ -176,6 +177,16 @@ export default function App() {
                         <RequireAuth>
                             <AppLayout>
                                 <MysqlPage />
+                            </AppLayout>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path="/databases/postgresql"
+                    element={
+                        <RequireAuth>
+                            <AppLayout>
+                                <PostgresqlPage />
                             </AppLayout>
                         </RequireAuth>
                     }

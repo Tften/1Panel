@@ -67,6 +67,11 @@ export const getAppDetail = (appID: number, version: string, type: string) =>
     http.get<AppDetail>(`apps/detail/${appID}/${version}/${type}`);
 export const getAppTags = () => http.get<{ key: string; name: string }[]>('apps/tags');
 export const installApp = (install: unknown) => http.post('apps/install', install);
+export const installedOp = (op: { installId: number; operate: string; taskID?: string }) =>
+    http.post('apps/installed/op', op);
+
+export const getAppIconUrl = (appKey: string, icon = '') =>
+    /^https?:\/\//i.test(icon) ? icon : `${import.meta.env.VITE_API_URL || '/api/v2'}/apps/icon/${encodeURIComponent(appKey)}`;
 
 export interface AppInstalled {
     id: number;
@@ -78,6 +83,8 @@ export interface AppInstalled {
     httpPort: number;
     httpsPort: number;
     path: string;
+    appKey: string;
+    icon: string;
     createdAt: string;
 }
 
